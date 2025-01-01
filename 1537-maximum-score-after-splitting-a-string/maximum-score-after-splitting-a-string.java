@@ -1,23 +1,21 @@
 class Solution {
     public int maxScore(String s) {
-        int n = s.length();
-        int ones = 0; // Count total ones in the string
-
-        for (int i = 0; i < n; i++)
-            if (s.charAt(i) == '1')
+        int ones = 0;
+        for (char c : s.toCharArray()) {
+            if (c == '1') {
                 ones++;
-
-        int zeros = 0; // Count zeros in the left substring
-        int maxScore = 0;
-
-        for (int i = 0; i < n - 1; i++) { // Exclude the last split
-            if (s.charAt(i) == '0') 
-                zeros++;
-            else
-                ones--;
-            maxScore = Math.max(maxScore, zeros + ones);
+            }
         }
-
-        return maxScore;
+        int ans = 0;
+        int zero = 0;
+        for (int i = 0; i < s.length() - 1; i++) { // Stop before the last character
+            if (s.charAt(i) == '0') {
+                zero++;
+            } else {
+                ones--;
+            }
+            ans = Math.max(ans, zero + ones);
+        }
+        return ans;
     }
 }
