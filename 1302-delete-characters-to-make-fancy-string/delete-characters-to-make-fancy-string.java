@@ -1,12 +1,24 @@
 class Solution {
     public String makeFancyString(String s) {
-        StringBuilder result = new StringBuilder();
-        for (char c : s.toCharArray()) {
-            int n = result.length();
-            if (n < 2 || !(result.charAt(n - 1) == c && result.charAt(n - 2) == c)) {
-                result.append(c);
+        StringBuilder sb = new StringBuilder();
+        int i =0;
+        int n = s.length();
+        while(i<n){
+            char c = s.charAt(i);
+            int count = 0;
+            while(i<n && s.charAt(i)==c){
+                count++;
+                i++;
+            }
+            if(count>=2)
+            {
+                sb.append(c);
+                sb.append(c);
+            }
+            else{
+                sb.append(c);
             }
         }
-        return result.toString();
+        return sb.toString();
     }
 }
