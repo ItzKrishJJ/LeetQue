@@ -1,75 +1,60 @@
 class Solution {
     public List<List<String>> solveNQueens(int n) {
-        List<List<String>> list = new ArrayList<>();
-        int[][] board = new int[n][n];
-        solveQueen(board, 0 , n, list, new ArrayList<>());
-        return list;
+           List<List<String>> ansList = new ArrayList<>();
+           int board[][] = new int[n][n];
+           solve(0 , n, board, ansList);
+           return ansList;
     }
-    private void solveQueen(int[][] board, int row, int n, List<List<String>> list, List<String> ds)
-    {
+
+    public void solve(int row, int n, int[][] board, List<List<String>> ansList){
         if(row>=n)
         {
-            list.add(constructSolution(board, n));
+            ansList.add(constructSolution(n , board));
             return;
         }
-        for(int col = 0; col < n; col++)
+        for(int col= 0;col<n;col++)
         {
-            if(isSafe(board, row ,col, n))
+            if(isSafe(row, col, board, n))
             {
                 board[row][col] = 1;
-                solveQueen(board, row+1, n , list, ds);
+                solve(row+1, n , board, ansList );
                 board[row][col] = 0;
             }
         }
     }
 
-    public boolean isSafe(int[][] board, int row, int col, int n)
+    public boolean isSafe(int row, int col, int board[][], int n)
     {
-        for(int i =0; i< row ; i++)
+        for(int i=0;i<row;i++)
         {
-            if(board[i][col]==1)
-            {
-                return false;
-            }
+            if(board[i][col]==1) return false;
         }
 
-        for(int i= row,j=col;i>=0 && j>=0;i--,j--)
+        for(int i=row, j = col; i>=0 && j>=0;i--,j--)
         {
-            if(board[i][j]==1)
-            {
-                return false;
-            }
+            if(board[i][j]==1) return false;
         }
 
-        for(int i=row, j=col; i>=0 && j<n;i--,j++)
+        for(int i = row, j = col ; i>=0 && j<n;i--,j++)
         {
-            if(board[i][j]==1)
-            {
-                return false;
-            }
+            if(board[i][j]==1) return false;
         }
 
         return true;
     }
 
-    private List<String> constructSolution(int [][]board, int n)
-    {
-        List<String> solution= new ArrayList<>();
+    public List<String> constructSolution(int n, int[][] board){
+        List<String> ans = new ArrayList<>();
         for(int i=0;i<n;i++)
         {
             StringBuilder sb = new StringBuilder();
             for(int j=0;j<n;j++)
             {
-                if(board[i][j]==1)
-                {
-                    sb.append('Q');
-                }
-                else{
-                    sb.append('.');
-                }
+                if(board[i][j]==1) sb.append('Q');
+                if(board[i][j]==0) sb.append('.');
             }
-            solution.add(sb.toString());
+            ans.add(sb.toString());
         }
-        return solution;
+        return ans;
     }
 }
