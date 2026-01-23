@@ -7,14 +7,14 @@ class Solution:
         steps = 0
         jump = 0
         currjump = 0
-        for i in range(n):
+        for i in range(n-1):
             currjump  = max(currjump , nums[i] + i)
             if i == jump:
                 jump = currjump
                 steps+=1
 
-                if jump >= n-1:
-                    break
+                # if jump >= n-1:
+                #     break
 
 
 
